@@ -28,6 +28,7 @@ namespace Smitetec
 {
     static class Extensions
     {
+        #region Booleans
         /// <summary>
         /// Returns true if the specified unit possess the recalling buff.
         /// </summary>
@@ -35,7 +36,7 @@ namespace Smitetec
         {
             if (source == null)
             {
-                throw new ArgumentNullException(source.Name);
+                throw new ArgumentNullException("source");
             }
 
             return source.BuffManager.HasBuff("recall");
@@ -48,10 +49,10 @@ namespace Smitetec
         {
             if (source == null)
             {
-                throw new ArgumentNullException(source.Name);
+                throw new ArgumentNullException("source");
             }
 
-            return MonsterNameList.Contains(source.Name);
+            return MonsterNameList.Contains("source");
         }
 
         /// <summary>
@@ -61,13 +62,78 @@ namespace Smitetec
         {
             if (source == null)
             {
-                throw new ArgumentNullException(source.Name);
+                throw new ArgumentNullException("source");
             }
 
             return BuffMonsterNameList.Contains(source.UnitSkinName);
         }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Returns the SpellSlot of an Item for a specified unit.
+        /// </summary>
+        public static SpellSlot GetItemSlot(this Obj_AI_Base source, uint item)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (item == default(uint))
+            {
+                throw new ArgumentNullException("item");
+            }
+
+            return source.Inventory.Slots
+                .Where(a => a.ItemId == item).Select(a => a.SpellSlot).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Returns true if the Item can be used.
+        /// </summary>
+        public static bool CanUseItem(this Obj_AI_Base source, uint item)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (item == default(uint))
+            {
+                throw new ArgumentNullException("item");
+            }
+
+            return source.SpellBook.GetSpellState(source.GetItemSlot(item)) == SpellState.Ready;
+        }
+
+        /// <summary>
+        /// Casts the item.
+        /// </summary>
+        public static bool UseItem(this Obj_AI_Base source, uint item)
+        {
+            if (item == default(uint))
+            {
+                throw new ArgumentNullException("item");
+            }
+
+            return source.SpellBook.CastSpell(source.GetItemSlot(item));
+        }
+        #endregion
 
         #region Lists
+        public static List<uint> PotionItems = new List<uint>()
+        {
+            ItemId.HealthPotion, ItemId.TotalBiscuitofRejuvenation,
+            ItemId.RefillablePotion, ItemId.CorruptingPotion, ItemId.HuntersPotion,
+        };
+
+        public static List<string> PotionBuffs = new List<string>()
+        {
+            "RegenerationPotion", "itemMiniRegenPotion",
+            "itemCrystalFlask", "itemDarkCrystalFlask", "itemCrystalFlaskJungle",
+        };
+
         public static List<string> MinionNameList = new List<string>()
         {
             "SRU_OrderMinionMelee", "SRU_OrderMinionRanged", "SRU_OrderMinionSiege", "SRU_OrderMinionSuper",
