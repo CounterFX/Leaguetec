@@ -122,6 +122,18 @@ namespace Potiontec
         #endregion
 
         #region Lists
+        public static List<uint> PotionItems = new List<uint>()
+        {
+            ItemId.HealthPotion, ItemId.TotalBiscuitofRejuvenation,
+            ItemId.RefillablePotion, ItemId.CorruptingPotion, ItemId.HuntersPotion,
+        };
+
+        public static List<string> PotionBuffs = new List<string>()
+        {
+            "RegenerationPotion", "itemMiniRegenPotion",
+            "itemCrystalFlask", "itemDarkCrystalFlask", "itemCrystalFlaskJungle",
+        };
+
         public static List<string> MinionNameList = new List<string>()
         {
             "SRU_OrderMinionMelee", "SRU_OrderMinionRanged", "SRU_OrderMinionSiege", "SRU_OrderMinionSuper",

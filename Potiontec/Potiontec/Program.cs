@@ -29,8 +29,6 @@ namespace Potiontec
     class Program
     {
         static Obj_AI_Hero _player;
-        static List<uint> PotionItems;
-        static List<string> PotionBuffs;
 
         static void Main(string[] args)
         {
@@ -46,18 +44,6 @@ namespace Potiontec
                 return;
             }
 
-            PotionItems = new List<uint>()
-            {
-                ItemId.HealthPotion, ItemId.TotalBiscuitofRejuvenation,
-                ItemId.RefillablePotion, ItemId.CorruptingPotion, ItemId.HuntersPotion,
-            };
-
-            PotionBuffs = new List<string>()
-            {
-                "RegenerationPotion", "itemMiniRegenPotion",
-                "itemCrystalFlask", "itemDarkCrystalFlask", "itemCrystalFlaskJungle",
-            };
-
             Menus.Initialize();
 
             Game.OnUpdate += Game_OnUpdate;
@@ -72,7 +58,7 @@ namespace Potiontec
 
             bool hasBuff = false;
 
-            foreach (string buff in PotionBuffs)
+            foreach (string buff in Extensions.PotionBuffs)
             {
                 if (_player.HasBuff(buff))
                 {
@@ -83,7 +69,7 @@ namespace Potiontec
                 }
             }
             
-            foreach (uint item in PotionItems)
+            foreach (uint item in Extensions.PotionItems)
             {
                 if (_player.HasItem(item))
                 {
