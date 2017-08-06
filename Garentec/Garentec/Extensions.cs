@@ -30,6 +30,27 @@ namespace Garentec
     {
         #region Booleans
         /// <summary>
+        /// Returns true if the specified unit has and can use a specified item.
+        /// </summary>
+        public static bool HasAndCanUseItem(this Obj_AI_Base source, uint item)
+        {
+            return source.HasItem(item) && source.CanUseItem(item);
+        }
+
+        /// <summary>
+        /// Returns true if the specified unit is a valid targetable target and not invulernable or dead.
+        /// </summary>
+        public static bool IsLegitimate(this Obj_AI_Base source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            return !source.IsDead && !source.IsInvulnerable && source.IsValid && source.IsTargetable;
+        }
+
+        /// <summary>
         /// Returns true if the specified unit possess the recalling buff.
         /// </summary>
         public static bool IsRecalling(this Obj_AI_Base source)
@@ -66,6 +87,37 @@ namespace Garentec
             }
 
             return BuffMonsterNameList.Contains(source.UnitSkinName);
+        }
+        #endregion
+
+        #region Counts
+        /// <summary>
+        /// Returns the number of specified units within a given range.
+        /// </summary>
+        public static int CountUnitsInRange(this Obj_AI_Base source, List<Obj_AI_Base> units, float range)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (units.Count < 0)
+            {
+                throw new ArgumentNullException("units");
+            }
+
+            return units.Count(a => a.IsValidTarget() && a.IsInRange(range));
+        }
+
+        /// <summary>
+        /// Returns the number of enemy turrets within a given range.
+        /// </summary>
+        public static int CountEnemyTurretsInRange(this Obj_AI_Base source, float range)
+        {
+            List<Obj_AI_Base> list = ObjectManager.Get<Obj_AI_Base>()
+                .Where(a => !a.IsDead && a.IsEnemy && a.Type == GameObjectType.obj_AI_Turret).ToList();
+
+            return source.CountUnitsInRange(list, range);
         }
         #endregion
 
@@ -119,6 +171,120 @@ namespace Garentec
 
             return source.SpellBook.CastSpell(source.GetItemSlot(item));
         }
+
+        /// <summary>
+        /// Casts the item on a specified target.
+        /// </summary>
+        public static bool UseItem(this Obj_AI_Base source, uint item, Obj_AI_Base target)
+        {
+            if (item == default(uint))
+            {
+                throw new ArgumentNullException("item");
+            }
+
+            return source.SpellBook.CastSpell(source.GetItemSlot(item), target);
+        }
+
+        /// <summary>
+        /// Returns a MenuComponent to create a boolean switch in the Menu object.
+        /// </summary>
+        public static MenuComponent AddBoolean(this Menu menu, string internalName, string displayName, bool enabled = true)
+        {
+            if (menu == null)
+            {
+                throw new ArgumentNullException("menu");
+            }
+
+            return menu.Add(new MenuBool(internalName, displayName, enabled));
+        }
+
+        /// <summary>
+        /// Returns a MenuComponent to create a List in the Menu object.
+        /// </summary>
+        public static MenuComponent AddKeyBind(this Menu menu, string internalName, string displayName,KeyCode key, KeybindType keybindType, bool active = false)
+        {
+            if (menu == null)
+            {
+                throw new ArgumentNullException("menu");
+            }
+
+            return menu.Add(new MenuKeyBind(internalName, displayName, key, keybindType, active));
+        }
+
+        /// <summary>
+        /// Returns a MenuComponent to create a List in the Menu object.
+        /// </summary>
+        public static MenuComponent AddList(this Menu menu, string internalName, string displayName, string[] items, int selectedValue)
+        {
+            if (menu == null)
+            {
+                throw new ArgumentNullException("menu");
+            }
+
+            return menu.Add(new MenuList(internalName, displayName, items, selectedValue));
+        }
+
+        /// <summary>
+        /// Returns a MenuComponent to display a seperator in the Menu object.
+        /// </summary>
+        public static MenuComponent AddSeperator(this Menu menu, string internalName)
+        {
+            if (menu == null)
+            {
+                throw new ArgumentNullException("menu");
+            }
+
+            return menu.Add(new MenuSeperator(internalName.ToLower(), internalName));
+        }
+
+        /// <summary>
+        /// Returns a MenuComponent to create a Slider in the Menu object.
+        /// </summary>
+        public static MenuComponent AddSlider(this Menu menu, string internalName, string displayName, int value, int minValue = 0, int maxValue = 100)
+        {
+            if (menu == null)
+            {
+                throw new ArgumentNullException("menu");
+            }
+
+            return menu.Add(new MenuSlider(internalName, displayName, value, minValue, maxValue));
+        }
+
+        /// <summary>
+        /// Returns a new list of Obj_AI_Base objects converted from Obj_AI_Hero objects.
+        /// </summary>
+        public static List<Obj_AI_Base> ToObj_AI_BaseList(this IEnumerable<Obj_AI_Hero> list)
+        {
+            List<Obj_AI_Base> newlist = new List<Obj_AI_Base>();
+
+            if (list.Count() > 0)
+            {
+                foreach (Obj_AI_Hero obj in list)
+                {
+                    newlist.Add(obj as Obj_AI_Base);
+                }
+            }
+
+            return newlist;
+        }
+
+        /// <summary>
+        /// Returns a new list of Obj_AI_Base objects converted from Obj_AI_Minion objects.
+        /// </summary>
+        public static List<Obj_AI_Base> ToObj_AI_BaseList(this IEnumerable<Obj_AI_Minion> list)
+        {
+            List<Obj_AI_Base> newlist = new List<Obj_AI_Base>();
+
+            if (list.Count() > 0)
+            {
+                foreach (Obj_AI_Minion obj in list)
+                {
+                    newlist.Add(obj as Obj_AI_Base);
+                }
+            }
+
+            return newlist;
+        }
         #endregion
 
         #region Lists
@@ -132,6 +298,11 @@ namespace Garentec
         {
             "RegenerationPotion", "itemMiniRegenPotion",
             "itemCrystalFlask", "itemDarkCrystalFlask", "itemCrystalFlaskJungle",
+        };
+
+        public static List<uint> HextechItems = new List<uint>()
+        {
+            ItemId.HextechGunblade, ItemId.HextechProtobelt01, ItemId.HextechGLP800,
         };
 
         public static List<string> MinionNameList = new List<string>()
@@ -190,6 +361,15 @@ namespace Garentec
         {
             "SRU_Dragon_Air", "SRU_Dragon_Fire", "SRU_Dragon_Water", "SRU_Dragon_Earth",
             "SRU_Dragon_Elder",
+        };
+
+        public static List<string> ADC_ChampionNameList = new List<string>()
+        {
+            "Ashe", "Caitlyn", "Corki", "Draven", "Ezreal",
+            "Graves", "Jhin", "Jinx", "Kalista", "Kindred",
+            "KogMaw", "Lucian", "MissFortune", "Quinn", "Sivir",
+            "Tristana", "Twitch", "Urgot", "Varus", "Vayne",
+            "Xayah",
         };
         #endregion
     }

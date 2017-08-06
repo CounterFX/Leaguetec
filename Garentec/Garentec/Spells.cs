@@ -41,7 +41,7 @@ namespace Garentec
 
         public static float RDamage(Obj_AI_Base target)
         {
-            if (target.BuffManager.HasBuff("garenpassiveenemytarget"))
+            if (target.HasBuff("garenpassiveenemytarget"))
             {
                 return (float)_player.CalculateDamage(target, DamageType.True, Damage.GetSpellDamage(_player, target, SpellSlot.R));
             }
@@ -51,12 +51,12 @@ namespace Garentec
 
         public static void CastBasicAttack(List<Obj_AI_Base> list, bool IsKillSteal = false)
         {
-            if (!hasPerformedAction)
+            if (!hasPerformedAction && list.Count() > 0)
             {
                 Obj_AI_Base target = list
-                    .OrderBy(a => a.Health)
-                    .Where(a => a.IsValidTarget() && a.IsInRange(_player.AttackRange + _player.BoundingRadius)
+                    .Where(a => a != null && a.IsLegitimate() && a.IsInRange(_player.AttackRange + _player.BoundingRadius)
                         && (!IsKillSteal || a.Health <= _player.GetAutoAttackDamage(a)))
+                    .OrderBy(a => a.Health)
                     .FirstOrDefault();
 
                 if (target != null)
@@ -68,18 +68,18 @@ namespace Garentec
 
         public static void CastR(List<Obj_AI_Base> list, bool IsKillSteal = false)
         {
-            if (_R != null && _R.Ready && _player.CountEnemyHeroesInRange(_R.Range) > 0)
+            if (_R != null && _R.Ready && !hasPerformedAction && list.Count() > 0)
             {
                 Obj_AI_Base target = list
-                    .OrderBy(a => a.BuffManager.HasBuff("garenpassiveenemytarget"))
-                    .ThenBy(a => a.Health)
-                    .Where(a => a.IsValidTarget() && a.IsInRange(_R.Range)
+                    .Where(a => a != null && a.IsLegitimate() && a.IsInRange(_R.Range)
                         && (!IsKillSteal || a.Health <= RDamage(a)))
+                    .OrderBy(a => a.HasBuff("garenpassiveenemytarget"))
+                    .ThenBy(a => a.Health)
                     .FirstOrDefault();
 
                 if (target != null)
                 {
-                    _R.Cast(target);
+                    hasPerformedAction = _R.Cast(target);
                 }
             }
         }

@@ -41,8 +41,8 @@ namespace Garentec
 
                 if (ksmenu != null) 
                 {
-                    ksmenu.Add(new MenuBool("ksAA", "Basic attack to KS"));
-                    ksmenu.Add(new MenuBool("ksR", "Use R to KS"));
+                    ksmenu.AddBoolean("ksAA", "Basic attack to KS");
+                    ksmenu.AddBoolean("ksR", "Use R to KS");
 
                     _menu.Add(ksmenu);
                 }
