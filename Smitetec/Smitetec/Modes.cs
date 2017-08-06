@@ -32,7 +32,7 @@ namespace Smitetec
 
         public static void Combo()
         {
-            List<Obj_AI_Base> targets = ObjectManager.Get<Obj_AI_Base>().Where(a => a.IsEnemy && a.IsHero && !a.IsDead).ToList();
+            List<Obj_AI_Base> targets = new List<Obj_AI_Base>();
 
             if (Menus._menu["combo"]["comboblue"].Enabled)
             {
@@ -54,61 +54,61 @@ namespace Smitetec
                 if (Menus._menu["smite"]["red"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_Red" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.UnitSkinName == "SRU_Red").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["blue"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_Blue" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "SRU_Blue").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["gromp"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_Gromp" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "SRU_Gromp").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["krug"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_Krug" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "SRU_Krug").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["raptor"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_Razorbeak" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "SRU_Razorbeak").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["wolf"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_Murkwolf" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "SRU_Murkwolf").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["crab"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "Sru_Crab" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "Sru_Crab").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["herald"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_RiftHerald" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "SRU_RiftHerald").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["drake"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => Extensions.DragonMonsterNameList.Contains(a.UnitSkinName) && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && Extensions.DragonMonsterNameList.Contains(a.UnitSkinName)).FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["baron"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "SRU_Baron" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "SRU_Baron").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
             }
@@ -117,25 +117,25 @@ namespace Smitetec
                 if (Menus._menu["smite"]["wraith"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "TT_NWraith" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "TT_NWraith").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["golem"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "TT_NGolem" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "TT_NGolem").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["wolf"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "TT_NWolf" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "TT_NWolf").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
                 if (Menus._menu["smite"]["spiderboss"].Enabled)
                 {
                     targets.Add(ObjectManager.Get<Obj_AI_Base>()
-                        .Where(a => a.UnitSkinName == "TT_Spiderboss" && !a.IsDead).FirstOrDefault());
+                        .Where(a => a.IsLegitimate() && a.UnitSkinName == "TT_Spiderboss").FirstOrDefault());
                     Spells.CastSmite(targets, true);
                 }
             }
@@ -143,8 +143,7 @@ namespace Smitetec
 
         public static void Killsteal()
         {
-            List<Obj_AI_Base> targets = ObjectManager.Get<Obj_AI_Base>()
-                .Where(a => a.IsEnemy && a.IsHero && !a.IsDead).ToList();
+            List<Obj_AI_Base> targets = GameObjects.EnemyHeroes.Where(a => !a.IsMe && a.IsLegitimate()).ToObj_AI_BaseList();
             
             if (Menus._menu["killsteal"]["ksblue"].Enabled)
             {
@@ -160,7 +159,7 @@ namespace Smitetec
         public static void Healing()
         {
             List<Obj_AI_Base> targets = ObjectManager.Get<Obj_AI_Base>()
-                .Where(a => a.IsEnemy && Extensions.BigMonsterNameList.Contains(a.UnitSkinName) && !a.IsDead).ToList();
+                .Where(a => a.IsLegitimate() && Extensions.BigMonsterNameList.Contains(a.UnitSkinName)).ToList();
 
             if (_player.HealthPercent() <= Menus._menu["settings"]["smiteheal"].Value)
             {

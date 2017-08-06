@@ -41,10 +41,7 @@ namespace Smitetec
             _player = ObjectManager.GetLocalPlayer();
             _orbwalker = new Orbwalker();
 
-            if (_player == null)
-            {
-                return;
-            }
+            if (_player == null) return;
 
             Spells._player = _player;
             Modes._player = _player;
@@ -56,10 +53,7 @@ namespace Smitetec
 
         private static void Game_OnUpdate()
         {
-            if (_player.IsDead)
-            {
-                return;
-            }
+            if (_player.IsDead) return;
 
             Spells.hasPerformedAction = false;
 

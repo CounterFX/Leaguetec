@@ -45,8 +45,8 @@ namespace Smitetec
 
                 if (combomenu != null)
                 {
-                    combomenu.Add(new MenuBool("comboblue", "Use Blue Smite", false));
-                    combomenu.Add(new MenuBool("combored", "Use Red Smite"));
+                    combomenu.AddBoolean("comboblue", "Use Blue Smite", false);
+                    combomenu.AddBoolean("combored", "Use Red Smite");
 
                     _menu.Add(combomenu);
                 }
@@ -55,24 +55,24 @@ namespace Smitetec
                 {
                     if (Game.MapId == GameMapId.SummonersRift)
                     {
-                        smitemenu.Add(new MenuBool("red", "Smite Red Brambleback"));
-                        smitemenu.Add(new MenuBool("blue", "Smite Blue Sentinel"));
-                        smitemenu.Add(new MenuBool("gromp", "Smite Gromp", false));
-                        smitemenu.Add(new MenuBool("krug", "Smite Ancient Krug", false));
-                        smitemenu.Add(new MenuBool("raptor", "Smite Crimson Raptor", false));
-                        smitemenu.Add(new MenuBool("wolf", "Smite Greater Murk Wolf", false));
-                        smitemenu.Add(new MenuBool("crab", "Smite Rift Scuttler", false));
-                        smitemenu.Add(new MenuBool("herald", "Smite Rift Herald"));
-                        smitemenu.Add(new MenuBool("drake", "Smite Drakes"));
-                        smitemenu.Add(new MenuBool("baron", "Smite Baron Nashor"));
+                        smitemenu.AddBoolean("red", "Smite Red Brambleback");
+                        smitemenu.AddBoolean("blue", "Smite Blue Sentinel");
+                        smitemenu.AddBoolean("gromp", "Smite Gromp", false);
+                        smitemenu.AddBoolean("krug", "Smite Ancient Krug", false);
+                        smitemenu.AddBoolean("raptor", "Smite Crimson Raptor", false);
+                        smitemenu.AddBoolean("wolf", "Smite Greater Murk Wolf", false);
+                        smitemenu.AddBoolean("crab", "Smite Rift Scuttler", false);
+                        smitemenu.AddBoolean("herald", "Smite Rift Herald");
+                        smitemenu.AddBoolean("drake", "Smite Drakes");
+                        smitemenu.AddBoolean("baron", "Smite Baron Nashor");
                     }
 
                     if (Game.MapId == GameMapId.TwistedTreeline)
                     {
-                        smitemenu.Add(new MenuBool("wraith", "Smite Wraith"));
-                        smitemenu.Add(new MenuBool("golem", "Smite Big Golem"));
-                        smitemenu.Add(new MenuBool("wolf", "Smite Giant Wolf"));
-                        smitemenu.Add(new MenuBool("spiderboss", "Smite Vilemaw"));
+                        smitemenu.AddBoolean("wraith", "Smite Wraith");
+                        smitemenu.AddBoolean("golem", "Smite Big Golem");
+                        smitemenu.AddBoolean("wolf", "Smite Giant Wolf");
+                        smitemenu.AddBoolean("spiderboss", "Smite Vilemaw");
                     }
 
                     _menu.Add(smitemenu);
@@ -80,15 +80,15 @@ namespace Smitetec
 
                 if (ksmenu != null)
                 {
-                    ksmenu.Add(new MenuBool("ksblue", "KS with Blue Smite"));
-                    ksmenu.Add(new MenuBool("ksred", "KS with Red Smite", false));
+                    ksmenu.AddBoolean("ksblue", "KS with Blue Smite");
+                    ksmenu.AddBoolean("ksred", "KS with Red Smite", false);
 
                     _menu.Add(ksmenu);
                 }
 
                 if (settingsmenu != null)
                 {
-                    settingsmenu.Add(new MenuSlider("smiteheal", "Use Smite to heal @ HP% <=", 25));
+                    settingsmenu.AddSlider("smiteheal", "Use Smite to heal @ HP% <=", 25);
 
                     _menu.Add(settingsmenu);
                 }

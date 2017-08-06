@@ -79,16 +79,13 @@ namespace Smitetec
 
         public static void CastSmite(List<Obj_AI_Base> list, bool IsKillSteal = false)
         {
-            if (_Smite != null && _Smite.Ready)
+            if (_Smite != null && _Smite.Ready
+                && !hasPerformedAction && list.Count > 0)
             {
-                if (list.Count > 0)
-                {
-                    list.OrderBy(a => a.Health);
-                }
-
                 Obj_AI_Base target = list
-                    .Where(a => a.IsValidTarget() && a.IsInRange(_Smite.Range)
+                    .Where(a => a != null && a.IsLegitimate() && a.IsInRange(_Smite.Range)
                         && (!IsKillSteal || a.Health <= SmiteDamage(a)))
+                    .OrderBy(a => a.Health)
                     .FirstOrDefault();
                 
                 if (target != null)
@@ -100,16 +97,13 @@ namespace Smitetec
 
         public static void CastBlueSmite(List<Obj_AI_Base> list, bool IsKillSteal = false)
         {
-            if (_Smite != null && _Smite.Ready)
+            if (_Smite != null && _Smite.Ready
+                && !hasPerformedAction && list.Count > 0)
             {
-                if (list.Count > 0)
-                {
-                    list.OrderBy(a => a.Health);
-                }
-
                 Obj_AI_Base target = list
-                    .Where(a => a.IsValidTarget() && a.IsInRange(_Smite.Range)
+                    .Where(a => a != null && a.IsLegitimate() && a.IsInRange(_Smite.Range)
                         && (!IsKillSteal || a.Health <= ChillingDamage(a)))
+                    .OrderBy(a => a.Health)
                     .FirstOrDefault();
 
                 if (target != null)
@@ -121,17 +115,14 @@ namespace Smitetec
 
         public static void CastRedSmite(List<Obj_AI_Base> list, bool IsKillSteal = false)
         {
-            if (_Smite != null && _Smite.Ready)
+            if (_Smite != null && _Smite.Ready
+                && !hasPerformedAction && list.Count > 0)
             {
-                if (list.Count > 0)
-                {
-                    list.OrderBy(a => a.Health);
-                }
-
                 Obj_AI_Base target = list
-                    .Where(a => a.IsValidTarget() && a.IsInRange(_Smite.Range)
-                        && !a.BuffManager.HasBuff("itemsmitechallenge")
+                    .Where(a => a != null && a.IsLegitimate() && a.IsInRange(_Smite.Range)
+                        && !a.HasBuff("itemsmitechallenge")
                         && (!IsKillSteal || a.Health <= ChallengingDamage(a)))
+                    .OrderBy(a => a.Health)
                     .FirstOrDefault();
 
                 if (target != null)
@@ -143,22 +134,20 @@ namespace Smitetec
 
         public static void CastRedSmiteWithBasicAttack(List<Obj_AI_Base> list, bool IsKillSteal = false)
         {
-            if (_Smite != null && _Smite.Ready)
+            if (_Smite != null && _Smite.Ready
+                && !hasPerformedAction && list.Count > 0)
             {
-                if (list.Count > 0)
-                {
-                    list.OrderBy(a => a.Health);
-                }
-
                 Obj_AI_Base target = list
-                    .Where(a => a.IsValidTarget() && a.IsInRange(_Smite.Range)
-                        && !a.BuffManager.HasBuff("itemsmitechallenge")
+                    .Where(a => a != null && a.IsLegitimate() && a.IsInRange(_Smite.Range)
+                        && !a.HasBuff("itemsmitechallenge")
                         && (!IsKillSteal || a.Health <= ChallengingDamage(a)))
+                    .OrderBy(a => a.Health)
                     .FirstOrDefault();
 
                 if (target != null)
                 {
                     _Smite.Cast(target);
+
                     hasPerformedAction = _player.IssueOrder(OrderType.AttackUnit, target);
                 }
             }
