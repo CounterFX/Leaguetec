@@ -39,10 +39,7 @@ namespace Potiontec
         {
             _player = ObjectManager.GetLocalPlayer();
 
-            if (_player == null)
-            {
-                return;
-            }
+            if (_player == null) return;
 
             Menus.Initialize();
 
@@ -51,33 +48,24 @@ namespace Potiontec
 
         private static void Game_OnUpdate()
         {
-            if (_player.IsDead)
-            {
-                return;
-            }
+            if (_player.IsDead) return;
 
             bool hasBuff = false;
 
             foreach (string buff in Extensions.PotionBuffs)
             {
-                if (_player.HasBuff(buff))
+                if (_player.HasBuff(buff) && !hasBuff)
                 {
-                    if (!hasBuff)
-                    {
-                        hasBuff = true;
-                    }
+                    hasBuff = true;
                 }
             }
             
             foreach (uint item in Extensions.PotionItems)
             {
-                if (_player.HasItem(item))
+                if (_player.HasAndCanUseItem(item) && !hasBuff
+                    && _player.HealthPercent() <= Menus._menu["pots"]["potpercent"].Value)
                 {
-                    if (_player.CanUseItem(item) && !hasBuff
-                        && _player.HealthPercent() <= Menus._menu["pots"]["potpercent"].Value)
-                    {
-                        _player.UseItem(item);
-                    }
+                    _player.UseItem(item);
                 }
             }
         }

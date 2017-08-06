@@ -40,7 +40,7 @@ namespace Potiontec
 
                 if (potmenu != null) 
                 {
-                    potmenu.Add(new MenuSlider("potpercent", "Use any Potion to heal @ HP% <=", 25));
+                    potmenu.AddSlider("potpercent", "Use any Potion to heal @ HP% <=", 25);
 
                     _menu.Add(potmenu);
                 }
