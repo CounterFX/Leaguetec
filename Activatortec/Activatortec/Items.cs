@@ -136,8 +136,9 @@ namespace Activatortec
                 if (_target.IsInRange(700) && hasGunblade)
                 {
                     float damage = new float[]{ 175, 179, 183, 187, 191, 195, 199, 203, 207, 211, 215, 220, 225, 230, 235, 240, 245, 250 }[_player.Level - 1];
+                    damage += _player.TotalAbilityDamage * 0.3f;
                     
-                    _totalDamage += (float) _player.CalculateDamage(_target, DamageType.Magical, damage + (_player.TotalAbilityDamage * 0.3));
+                    _totalDamage += (float) _player.CalculateDamage(_target, DamageType.Magical, damage);
                     useGunblade = true;
                 }
             }
@@ -194,15 +195,15 @@ namespace Activatortec
 
         static void BannerOfCommand()
         {
-            if (Menus._menu["defensive"]["banner"].Enabled
-                && _player.HasAndCanUseItem(ItemId.BannerofCommand))
+            if (Menus._menu["utility"]["banner"].Enabled
+                && ObjectManager.GetLocalPlayer().HasAndCanUseItem(ItemId.BannerofCommand))
             {
                 Obj_AI_Base target = GameObjects.AllyMinions
                     .OrderBy(a => a.Health)
                     .Where(a => a.IsLegitimate() && a.IsInRange(1200)
                     && a.HealthPercent() >= 75 && !a.HasBuff("ItemPromote")
-                    && a.UnitSkinName.Contains(Menus.minionlist[Menus._menu["defensive"]["bannerunit"].Value]))
-                    .FirstOrDefault();
+                    && a.UnitSkinName.Contains(Menus.minionlist[Menus._menu["utility"]["bannerunit"].Value])
+                    ).FirstOrDefault();
                 
                 if (target != null)
                 {

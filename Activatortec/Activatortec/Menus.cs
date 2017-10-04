@@ -49,8 +49,6 @@ namespace Activatortec
                 {
                     offmenu.AddBoolean("cutlass", "KS with Bilgewater Cutlass", false);
                     offmenu.AddBoolean("botrk", "KS with Blade of the Ruined King", false);
-                    offmenu.AddBoolean("cutlass", "KS with Bilgewater Cutlass", false);
-                    offmenu.AddBoolean("botrk", "KS with Blade of the Ruined King", false);
                     offmenu.AddBoolean("gunblade", "KS with Hextech Gunblade");
                     offmenu.AddBoolean("tiamat", "KS with Tiamat");
                     offmenu.AddBoolean("ravenous", "KS with Ravenous Hydra");
@@ -131,8 +129,8 @@ namespace Activatortec
 
                 if (devmenu != null)
                 {
-                    devmenu.AddKeyBind("itemlist", "Item List", KeyCode.Up, KeybindType.Press);
-                    devmenu.AddKeyBind("bufflist", "Buff List", KeyCode.Down, KeybindType.Press);
+                    devmenu.AddKeyBind("itemlist", "Item List [UP]", KeyCode.Up, KeybindType.Press);
+                    devmenu.AddKeyBind("bufflist", "Buff List [DOWN]", KeyCode.Down, KeybindType.Press);
 
                     _menu.Add(devmenu);
                 }

@@ -45,6 +45,7 @@ namespace Activatortec
             }
 
             Items._player = _player;
+            Spells._player = _player;
 
             Menus.Initialize();
 
