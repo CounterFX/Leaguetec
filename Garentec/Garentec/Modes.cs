@@ -32,22 +32,22 @@ namespace Garentec
 
         public static void Combo()
         {
-            List<Obj_AI_Base> targets = GameObjects.EnemyHeroes.Where(a => a.IsLegitimate()).ToObj_AI_BaseList();
+            List<Obj_AI_Base> targets = GameObjects.EnemyHeroes.Where(a => a != null && a.IsLegitimate()).ToObj_AI_BaseList();
         }
 
         public static void Clear()
         {
-            List<Obj_AI_Base> targets = GameObjects.EnemyMinions.Where(a => a.IsLegitimate()).ToObj_AI_BaseList();
+            List<Obj_AI_Base> targets = GameObjects.EnemyMinions.Where(a => a != null && a.IsLegitimate()).ToObj_AI_BaseList();
         }
 
         public static void Lasthit()
         {
-            List<Obj_AI_Base> targets = GameObjects.EnemyMinions.Where(a => a.IsLegitimate()).ToObj_AI_BaseList();
+            List<Obj_AI_Base> targets = GameObjects.EnemyMinions.Where(a => a != null && a.IsLegitimate()).ToObj_AI_BaseList();
         }
 
         public static void Killsteal()
         {
-            List<Obj_AI_Base> targets = GameObjects.EnemyHeroes.Where(a => a.IsLegitimate()).ToObj_AI_BaseList();
+            List<Obj_AI_Base> targets = GameObjects.EnemyHeroes.Where(a => a != null && a.IsLegitimate()).ToObj_AI_BaseList();
             
             if (Menus._menu["ksmenu"]["ksAA"].Enabled)
             {
