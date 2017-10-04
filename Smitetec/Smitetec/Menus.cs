@@ -88,7 +88,7 @@ namespace Smitetec
 
                 if (settingsmenu != null)
                 {
-                    settingsmenu.AddSlider("smiteheal", "Use Smite to heal @ HP% <=", 25);
+                    settingsmenu.AddSlider("smiteheal", "Use Smite to heal @ HP% <=", 10);
 
                     _menu.Add(settingsmenu);
                 }

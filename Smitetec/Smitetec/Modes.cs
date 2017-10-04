@@ -32,7 +32,7 @@ namespace Smitetec
 
         public static void Combo()
         {
-            List<Obj_AI_Base> targets = new List<Obj_AI_Base>();
+            List<Obj_AI_Base> targets = GameObjects.EnemyHeroes.Where(a => !a.IsMe && a.IsLegitimate()).ToObj_AI_BaseList();
 
             if (Menus._menu["combo"]["comboblue"].Enabled)
             {
